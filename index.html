@@ -3,399 +3,407 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nami — Hồ sơ nhân vật One Piece</title>
-  <meta name="description" content="Web con gọn gàng, đẹp mắt, tổng hợp đầy đủ thông tin về Nami trong One Piece."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Kho Báu One Piece & Danh hiệu Vua Hải Tặc</title>
+  <meta name="description" content="Web con giải thích truyền thuyết về Kho Báu One Piece và Danh hiệu Vua Hải Tặc, UI phong cách One Piece hiện đại." />
+
+  <!-- Google Fonts - vibe hải tặc -->
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#0b1220;             /* nền tối mặc định */
-      --panel:#0f172a;          /* thẻ/card */
-      --text:#e6edf6;           /* chữ chính */
-      --muted:#9fb0c6;          /* chữ phụ */
-      --brand:#f59e0b;          /* điểm nhấn cam (cam của Nami) */
-      --brand-2:#38bdf8;        /* điểm nhấn xanh biển */
-      --ring:#f59e0b55;         /* viền glow */
-      --ok:#22c55e;
-      --bad:#ef4444;
-      --card-radius:22px;
-      --shadow:0 10px 30px rgba(0,0,0,.25);
-      --maxw:1080px;
+      --bg:#0a0f1a;            /* xanh đêm */
+      --bg2:#0c1324;           /* lớp nền */
+      --card:#111831;          /* thẻ */
+      --ink:#e6ecff;           /* chữ */
+      --muted:#9bb0ff;
+      --gold:#f7c86a;          /* vàng kho báu */
+      --red:#ff5a6a;           /* điểm nhấn */
+      --sea:#2aa7ff;           /* biển */
+      --glow: 0 0 24px rgba(247,200,106,.25);
     }
-    /* Light mode */
-    .light{
-      --bg:#f7fafc;
-      --panel:#ffffff;
-      --text:#0b1220;
-      --muted:#5b6575;
-      --ring:#f59e0b33;
-      --shadow:0 10px 24px rgba(10,20,30,.08);
-    }
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; background:radial-gradient(1200px 600px at 20% -10%, #1b2a4a 0%, transparent 60%),
-                               radial-gradient(1200px 600px at 120% 10%, #1a3444 0%, transparent 60%),
-                               var(--bg);
-      color:var(--text);
-      font:16px/1.6 "Be Vietnam Pro", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      letter-spacing:.2px;
+      margin:0; color:var(--ink); background: radial-gradient(1200px 800px at 10% -10%, #10224a, transparent 60%),
+        radial-gradient(1200px 800px at 110% 10%, #0b1a38, transparent 50%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.6;
     }
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; display:block}
-    /* ====== Header ====== */
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 18px}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Header */
     header{
-      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.6));
+      position:sticky; top:0; z-index:40;
+      backdrop-filter:saturate(1.2) blur(10px);
+      background:linear-gradient(180deg, rgba(10,15,26,.9), rgba(10,15,26,.6));
       border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .nav{display:flex; align-items:center; gap:14px; padding:12px 0}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
-    .brand i{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, var(--brand), #ef7d19 60%);
-      box-shadow:0 0 0 4px rgba(245,158,11,.15), 0 4px 14px rgba(245,158,11,.35);
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand svg{width:32px;height:32px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+    .brand-name{font-family:"Pirata One", serif; font-size:26px; letter-spacing:.5px}
+    .nav-links{display:flex; gap:12px; flex-wrap:wrap}
+    .nav a{padding:10px 14px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+    .nav a:hover{background:rgba(255,255,255,.08)}
+    .cta{
+      padding:10px 16px; border-radius:14px; font-weight:700;
+      background:linear-gradient(135deg, var(--gold), #ffd780);
+      color:#1a1200; border:1px solid rgba(255,214,128,.5); box-shadow:var(--glow)
     }
-    .brand span{font-size:18px}
-    .navlinks{margin-left:auto; display:flex; gap:12px; flex-wrap:wrap}
-    .navlinks a{
-      padding:8px 12px; border-radius:999px; font-weight:600; color:var(--text);
-      border:1px solid rgba(255,255,255,.08); opacity:.9
+
+    /* Hero */
+    .hero{position:relative; overflow:hidden}
+    .hero-wrap{display:grid; grid-template-columns:1.2fr 1fr; gap:28px; align-items:center}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-weight:600;
+      color:#1a1200; background:linear-gradient(135deg, #ffe9b3, var(--gold));
+      border:1px solid rgba(255,214,128,.6); width:max-content}
+    .title{font-family:"Pirata One", serif; font-size:56px; line-height:1.05; margin:8px 0 10px}
+    .lead{color:var(--muted); font-size:18px}
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .btn{padding:12px 16px; border-radius:14px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.05)}
+    .btn:hover{background:rgba(255,255,255,.1)}
+    .btn.primary{background:linear-gradient(135deg, var(--sea), #6cc8ff); color:#03121e; font-weight:800}
+    .btn.ghost{background:transparent}
+
+    .hero-card{
+      position:relative; border-radius:22px; padding:18px; overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      min-height:260px;
     }
-    .navlinks a:hover{border-color:var(--brand); box-shadow:0 0 0 4px var(--ring)}
-    .toggle{margin-left:6px; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); cursor:pointer; font-weight:600}
-
-    /* ====== Hero ====== */
-    .hero{padding:38px 0 24px}
-    .hero .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:22px}
-    .title{font-size:clamp(28px,4.2vw,44px); line-height:1.2; margin:6px 0 8px; font-weight:800}
-    .kicker{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); letter-spacing:.6px; text-transform:uppercase}
-    .kicker .dot{width:6px; height:6px; background:var(--brand-2); border-radius:50%}
-    .lead{font-size:18px; color:var(--muted)}
-    .cta-row{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
-    .btn{padding:10px 14px; border-radius:14px; font-weight:700; border:1px solid rgba(255,255,255,.1); display:inline-flex; align-items:center; gap:8px; transition:.2s; box-shadow:var(--shadow)}
-    .btn.primary{background:linear-gradient(135deg, var(--brand), #ef7d19); color:#fff; border:none}
-    .btn.secondary{background:linear-gradient(135deg, var(--brand-2), #14b8a6); color:#001421; border:none}
-    .btn:hover{transform:translateY(-1px)}
-
-    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--card-radius); padding:18px; box-shadow:var(--shadow)}
-    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px}
-    .stat{background:var(--panel); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:14px}
-    .stat b{font-size:20px}
-    .meta{display:grid; gap:10px}
-    .meta-row{display:grid; grid-template-columns:140px 1fr; gap:10px}
-
-    /* ====== Sections ====== */
-    section{padding:24px 0}
-    h2{font-size:clamp(22px,3.4vw,30px); margin:0 0 12px; letter-spacing:.3px}
-    .grid{display:grid; gap:14px}
-    .cols-2{grid-template-columns:repeat(2,1fr)}
-    .cols-3{grid-template-columns:repeat(3,1fr)}
-    .card{background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius:var(--card-radius); padding:18px; box-shadow:var(--shadow)}
-    .muted{color:var(--muted)}
-
-    .list{display:grid; gap:10px}
-    .list li{display:grid; grid-template-columns:18px 1fr; gap:10px; align-items:start}
-    .list .dot{width:10px; height:10px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); border-radius:50%; margin-top:8px}
-
-    /* table-like details */
-    .details{display:grid; gap:8px}
-    .row{display:grid; grid-template-columns: 180px 1fr; gap:10px; padding:10px; border-radius:12px; border:1px dashed rgba(255,255,255,.06)}
-    .row span{color:var(--muted)}
-
-    /* timeline */
-    .timeline{position:relative; padding-left:18px}
-    .timeline:before{content:""; position:absolute; left:6px; top:4px; bottom:4px; width:2px; background:linear-gradient(180deg, var(--brand-2), transparent)}
-    .tl-item{position:relative; padding:8px 0 8px 10px}
-    .tl-item:before{content:""; position:absolute; left:-2px; top:16px; width:10px; height:10px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px var(--ring)}
-
-    /* footer */
-    footer{padding:24px 0 40px; color:var(--muted)}
-    .foot{display:flex; justify-content:space-between; gap:10px; align-items:center; border-top:1px solid rgba(255,255,255,.08); padding-top:14px}
-
-    /* responsive */
-    @media (max-width: 940px){
-      .hero .grid{grid-template-columns:1fr}
-      .stats{grid-template-columns:repeat(2,1fr)}
-      .meta-row{grid-template-columns:1fr}
-      .cols-2{grid-template-columns:1fr}
-      .cols-3{grid-template-columns:repeat(2,1fr)}
-      .row{grid-template-columns:1fr}
+    .hero-card:before{
+      content:""; position:absolute; inset:-40%; background: conic-gradient(from 180deg at 50% 50%, rgba(255,215,128,.25), transparent 30%);
+      filter: blur(40px); transform: rotate(12deg);
     }
-    @media (max-width: 560px){
-      .navlinks{display:none}
-      .stats{grid-template-columns:1fr}
-      .cols-3{grid-template-columns:1fr}
+    .hero-card .overlay{
+      position:absolute; inset:0; background:
+        radial-gradient(160px 80px at 20% 15%, rgba(255,215,128,.12), transparent 60%),
+        radial-gradient(300px 180px at 80% 85%, rgba(42,167,255,.14), transparent 60%);
+      pointer-events:none
     }
-	
-	.back-home-btn{
-  position:fixed;
-  right:20px;
-  bottom:80px;
-  background:rgba(245,158,11,0.85);   /* cam hơi trong suốt */
-  color:#fff;
-  font-size:16px;
-  font-weight:600;
-  padding:10px 18px;
-  border-radius:24px;
-  box-shadow:0 6px 18px rgba(0,0,0,.35);
-  text-decoration:none;
-  transition:.25s;
-  z-index:999;
-  backdrop-filter:blur(6px);          /* hiệu ứng kính mờ */
-  letter-spacing:0.3px;
-}
-.back-home-btn:hover{
-  background:rgba(245,158,11,1);      /* đậm hơn khi hover */
-  transform:translateY(-2px) scale(1.03);
-  box-shadow:0 8px 22px rgba(0,0,0,.45);
+    .treasure{
+      position:absolute; right:-40px; bottom:-30px; width:340px; aspect-ratio:1/1; opacity:.85;
+      filter:drop-shadow(0 20px 50px rgba(0,0,0,.6));
+    }
+
+    /* Sections */
+    section{margin:56px 0}
+    .section-title{font-family:"Pirata One"; font-size:36px; margin:0 0 14px}
+    .grid{display:grid; gap:16px}
+    .grid.cols-3{grid-template-columns:repeat(3, 1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2, 1fr)}
+    @media (max-width: 900px){
+      .hero-wrap{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px; padding:18px;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .card:hover{transform:translateY(-2px); box-shadow:0 16px 48px rgba(0,0,0,.35); border-color:rgba(255,255,255,.15)}
+    .card h3{margin:0 0 6px; font-size:20px}
+    .tag{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px;
+      border:1px dashed rgba(255,255,255,.18); color:var(--gold); font-weight:700; font-size:12px}
+
+    .timeline{position:relative; margin-left:12px}
+    .timeline:before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, #6cc8ff, transparent)}
+    .event{position:relative; padding-left:28px; margin:16px 0}
+    .event:before{content:""; position:absolute; left:0; top:8px; width:16px; height:16px; border-radius:50%; background:var(--sea); box-shadow:0 0 0 4px rgba(42,167,255,.15)}
+    .event h4{margin:0 0 4px}
+    .muted{color:var(--muted); font-size:14px}
+
+    /* FAQ */
+    details{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); padding:14px 16px; border-radius:14px}
+    summary{cursor:pointer; font-weight:700}
+
+    /* Footer */
+    footer{margin-top:72px; border-top:1px solid rgba(255,255,255,.08); padding:24px 0; color:var(--muted); font-size:14px}
+
+    /* Floating buttons */
+    .float{position:fixed; right:18px; bottom:18px; display:flex; gap:10px; z-index:50}
+    .float button{border:none; cursor:pointer; padding:12px 14px; border-radius:16px; background:rgba(255,255,255,.08); color:var(--ink); font-weight:800}
+    .float button:hover{background:rgba(255,255,255,.14)}
   </style>
 </head>
 <body>
   <header>
-    <div class="wrap nav">
-      <a href="#top" class="brand" aria-label="Trang chủ Nami">
-        <i aria-hidden="true">🎯</i>
-        <span>Nami • Hồ sơ nhân vật</span>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Trang chủ">
+        <!-- Cờ Jolly Roger tối giản bằng SVG -->
+        <svg viewBox="0 0 64 64" aria-hidden="true" fill="none">
+          <circle cx="32" cy="20" r="10" stroke="#fff" stroke-width="4"/>
+          <rect x="28" y="28" width="8" height="10" rx="2" fill="#fff"/>
+          <path d="M16 44 L48 44 M12 38 L52 38" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div class="brand-name">Grand Line Archives</div>
       </a>
-      <nav class="navlinks" aria-label="Điều hướng nhanh">
-        <a href="#gioi-thieu">Giới thiệu</a>
-        <a href="#thong-tin">Thông tin cơ bản</a>
-        <a href="#nang-luc">Năng lực</a>
-        <a href="#quan-he">Mối quan hệ</a>
-        <a href="#khoanh-khac">Khoảnh khắc</a>
+      <nav class="nav-links">
+        <a href="#legend">Truyền thuyết</a>
+        <a href="#treasure">Kho báu</a>
+        <a href="#pirate-king">Vua Hải Tặc</a>
+        <a href="#timeline">Dòng thời gian</a>
+        <a href="#faq">FAQ</a>
+        <a class="cta" href="index.html#mucluc">Xem thêm</a>
       </nav>
-      <button class="toggle" id="toggleTheme" aria-label="Chuyển giao diện">🌙/☀️</button>
     </div>
   </header>
 
-  <main id="top" class="wrap">
-    <!-- HERO -->
-    <section class="hero" id="gioi-thieu">
-      <div class="grid">
-        <div>
-          <span class="kicker"><span class="dot"></span> Nami • Miêu Tặc</span>
-          <h1 class="title">Nami — Hoa tiêu tài năng của băng Mũ Rơm.</h1>
-		  <img src="https://media1.tenor.com/m/cFT-KU5UWgYAAAAd/franky-franky-one-piece.gif" 
-     alt="Nami One Piece" 
-     style="width:100%; height:auto; border-radius:12px;">
-          <p class="lead">Từ cô gái bị áp bức ở làng Cocoyasi đến biểu tượng tự do trên biển cả. Thông minh, thực tế và tinh quái — Nami là trái tim và lý trí của băng.</p>
-          <div class="cta-row">
-            <a class="btn primary" href="#nang-luc">Khám phá năng lực ⚡</a>
-            <a class="btn secondary" href="#timeline">Xem hành trình ⛵</a>
-          </div>
-
-          <div class="hero-card" style="margin-top:16px">
-            <div class="meta">
-              <div class="meta-row"><strong>Tôi là kẻ chuyên lấy cắp báu vật từ tay hải tặc.<div></div></div>
-            </div>
-          </div>
+  <main class="container hero" id="top">
+    <div class="hero-wrap">
+      <div>
+        <span class="badge">✨ Web con chủ đề</span>
+        <h1 class="title">Kho Báu <span style="color:var(--gold); text-shadow:var(--glow)">One Piece</span> & Danh hiệu <span style="color:#6cc8ff">Vua Hải Tặc</span></h1>
+        <p class="lead">Tất tần tật về truyền thuyết tối thượng của đại dương: kho báu ở cuối Grand Line và ý nghĩa thật sự của danh hiệu mà mọi hải tặc đều khao khát.</p>
+        <div class="actions">
+          <a class="btn primary" href="#treasure">Khám phá Kho Báu</a>
+          <a class="btn" href="#pirate-king">Hiểu về Vua Hải Tặc</a>
+          <a class="btn ghost" href="TrangWebFanOnePiece.html" title="Quay về trang chính">⬅ Quay lại trang chính</a>
         </div>
-
-        <aside>
-          <div class="hero-card">
-            <h2 style="margin:0 0 10px">Thông Tin Nhanh</h2>
-            <div class="stat">
-  <span class="muted">Tuổi (Sau Time Skip): </span><b>20</b>
-</div>
-<div class="stat">
-  <span class="muted">Chiều cao (Sau Time Skip): </span><b>170 cm.</b>
-</div>
-<div class="stat">
-  <span class="muted">Sinh nhật: </span><b>03/07</b>
-</div>
-<div class="stat">
-  <span class="muted">Truy nã (Sau Arc Wano): </span><b>366,000,000 beri.</b>
-</div>
-<div class="stat">
-  <span class="muted">Quê quán: </span><b>Làng Cocoyasi (East Blue).</b>
-</div>
-<div class="stat">
-  <span class="muted">Giấc mơ: </span><b>Vẽ bản đồ toàn thế giới.</b>
-</div>
-<div class="stat">
-  <span class="muted">Nhóm máu: </span><b>X</b>
-</div>
-<div class="stat">
-  <span class="muted">Chòm sao: </span><b>Cự Giải.</b>
-</div>
-<div class="stat">
-  <span class="muted">Quốc tịch (Theo Oda): </span><b>Thụy Điển.</b>
-</div>
-            </div>
-          </div>
-        </aside>
       </div>
-    </section>
-
-    <!-- THÔNG TIN CƠ BẢN -->
-    <section id="thong-tin">
-      <h2>📌 Thông tin cơ bản</h2>
-      <div class="card details">
-        <div class="row"><span>Tên</span><div><strong>Nami (ナミ) — biệt danh: <em>Miêu tặc</em> / Cat Burglar.</div></div>
-		<div class="row"><span>Vai trò:</span><div><strong>Kẻ trộm, hoa tiêu, khảo sát viên – Nami làm được tất cả! Cô là hoa tiêu của băng, dẫn dắt chuyến hải trình nhờ kiến thức về biển cả và sự am hiểu thời tiết. Băng của Luffy phần lớn toàn những kẻ ngốc nghếch, nên chính cô là người giữ họ trong khuôn khổ.</div></div>
-		<div class="row"><span>Biểu tượng:</span><div><strong>Cô có một hình xăm màu xanh trên vai trái, biểu tượng cho cây quýt và chong chóng (tưởng niệm Bell-mère, Nojiko và Genzo). Hình xăm này che đi dấu ấn cũ khi cô từng là thành viên trong băng của Arlong.</div></div>
-        <div class="row"><span>Xuất thân</span><div>Làng Cocoyasi, East Blue • Mồ côi, được Bell-mère nhận nuôi cùng Nojiko</div></div>
-        <div class="row"><span>Tính cách</span><div>Thông minh, thực tế, ham tiền (động lực từ quá khứ), gan dạ nhưng sợ ma, mềm lòng, cá tính “chị cả”.</div></div>
-        <div class="row"><span>Trang phục</span><div>Trước TS: áo hở vai, váy ngắn • Sau TS: bikini + quần jeans/váy, phong cách gợi cảm.</div></div>
-        <div class="row"><span>Vũ khí</span><div><strong>Clima-Tact</strong> (Usopp chế) + nâng cấp Weatheria • Hợp thể với <strong>Zeus</strong> sau Whole Cake &amp; Wano.</div></div>
-        <div class="row"><span>Mục tiêu</span><div>Vẽ bản đồ thế giới • Dẫn dắt băng vượt mọi vùng biển với kỹ năng định hướng và khí tượng.</div></div>
+      <div class="hero-card">
+  <img src="https://media1.tenor.com/m/KP17MoXXpyAAAAAd/one-piece.gif" alt="Vua Hải Tặc" 
+       style="width:100%; height:100%; object-fit:cover; border-radius:18px;">
+</div>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f7c86a"/>
+              <stop offset="1" stop-color="#bd8f2d"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(60,40)">
+            <rect x="0" y="80" width="180" height="100" rx="10" fill="url(#g1)" stroke="#7a5a10" stroke-width="6"/>
+            <rect x="0" y="40" width="180" height="60" rx="10" fill="#8b5a2b" stroke="#3a2a10" stroke-width="6"/>
+            <rect x="72" y="80" width="36" height="40" rx="6" fill="#3a2a10"/>
+            <circle cx="90" cy="100" r="6" fill="#f7f2d0"/>
+            <g>
+              <circle cx="30" cy="35" r="6" fill="#ffe8a0">
+                <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="120" cy="22" r="4" fill="#fff3c6">
+                <animate attributeName="opacity" values="0;1;0" dur="2.8s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          </g>
+        </svg>
       </div>
-    </section>
+    </div>
 
-    <!-- NĂNG LỰC & SỨC MẠNH -->
-    <section id="nang-luc">
-      <h2>⚡ Năng lực &amp; Sức mạnh</h2>
+    <section id="legend">
+      <h2 class="section-title">Nguồn gốc truyền thuyết</h2>
       <div class="grid cols-3">
-        <div class="card">
-          <h3>Hoa tiêu thiên tài</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Cảm nhận thời tiết, dòng hải lưu chính xác; tối ưu lộ trình, đảm bảo an toàn cho tàu.</div></li>
-            <li><span class="dot"></span><div>Phân tích khí tượng phức tạp (Grand Line, New World) — lợi thế chiến lược của băng.</div></li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Clima‑Tact</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Tạo mưa, sấm sét, gió mạnh, ảo ảnh nhiệt — khống chế không gian giao chiến.</div></li>
-            <li><span class="dot"></span><div>Nâng cấp Weatheria: tĩnh điện, black ball, heat ball… kết hợp chiến thuật đánh lừa.</div></li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Zeus hợp tác</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Zeus trú ngụ trong Clima‑Tact → đòn sét mạnh, linh hoạt, cơ động cao.</div></li>
-            <li><span class="dot"></span><div>Sau Wano: hỏa lực tăng vọt, đủ đối đầu các chỉ huy cấp thấp.</div></li>
-          </ul>
-        </div>
+        <article class="card">
+          <span class="tag">Grand Line</span>
+          <h3>Cuối con đường</h3>
+          <p>Nơi cuối cùng của Grand Line được đồn đại cất giữ kho báu tối thượng. Chỉ những người ghép trọn manh mối và vượt qua Tân Thế Giới mới mong đặt chân đến.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Di sản</span>
+          <h3>Ý chí của thế hệ trước</h3>
+          <p>Kho báu không chỉ là vàng bạc – đó còn là sự thật, tiếng cười và tự do để truyền lại cho thế hệ tiếp theo.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Bí ẩn</span>
+          <h3>Những mảnh ghép lịch sử</h3>
+          <p>Các hòn đảo như Loguetown, Sabaody, Fish-Man, Wano… đều là mốc quan trọng trong hành trình lần theo bí ẩn One Piece.</p>
+        </article>
       </div>
     </section>
 
-    <!-- QUÁ KHỨ & BƯỚC NGOẶT -->
-    <section id="qua-khu">
-      <h2>🧭 Quá khứ &amp; bước ngoặt</h2>
+    <section id="treasure">
+      <h2 class="section-title">Kho báu One Piece là gì?</h2>
       <div class="grid cols-2">
-        <div class="card">
-          <h3>• Bi kịch Arlong</h3>
-          <p>- Từng là thành viên của Băng Arlong... </p>
-          <p><b>- Để mua .</p>
-        </div>
-        <div class="card">
-          <h3>Phát triển sau Timeskip</h3>
-          <p>Tu nghiệp tại Weatheria (đảo thời tiết); Clima‑Tact được nâng cấp; chiến thuật trưởng thành hơn, tự tin chỉ huy đội hình.</p>
-        </div>
+        <article class="card">
+          <h3>Ba lớp ý nghĩa</h3>
+          <ul>
+            <li><b>Vật chất:</b> kho báu hữu hình – vàng, di vật, công nghệ cổ.</li>
+            <li><b>Lịch sử:</b> sự thật bị che giấu, lời cười nói dở của một kỷ nguyên.</li>
+            <li><b>Tự do:</b> tự do ra khơi, tự do cười to, tự do sống đúng ý chí.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Cách trình bày trên đảo cuối</h3>
+          <p>Người đến được cuối Grand Line sẽ hiểu vì sao những kẻ dám mơ lại bật cười khi thấy kho báu. Đó là khoảnh khắc mà hành trình biến thành phần thưởng.</p>
+          <button class="btn" id="btn-quote">Nghe trích dẫn cảm hứng</button>
+        </article>
       </div>
     </section>
 
-    <!-- VAI TRÒ -->
-    <section id="vai-tro">
-      <h2>🎯 Vai trò trong băng Mũ Rơm</h2>
+    <section id="pirate-king">
+      <h2 class="section-title">Danh hiệu Vua Hải Tặc</h2>
       <div class="grid cols-3">
-        <div class="card"><h3>Hoa tiêu</h3><p>Bảo toàn hành trình, tránh nguy hiểm, lựa chọn cửa sổ thời tiết tối ưu.</p></div>
-        <div class="card"><h3>Quản lý tài chính</h3><p>Thu phí dịch vụ từ “ba chàng liều” Luffy/Zoro/Sanji 😆 và giữ kho báu của băng.</p></div>
-        <div class="card"><h3>Chị cả</h3><p>Giữ kỷ luật, cân bằng cảm xúc nhóm, đưa ra quyết định thực tế khi cần.</p></div>
+        <article class="card">
+          <h3>Nghĩa đen</h3>
+          <p>Người đứng đầu kỷ nguyên hải tặc, nắm giữ tự do tối thượng và kho báu tối thượng.</p>
+        </article>
+        <article class="card">
+          <h3>Nghĩa bóng</h3>
+          <p>Biểu tượng cho năng lực quy tụ đồng đội, phá xiềng xích định kiến và thách thức quyền lực áp bức.</p>
+        </article>
+        <article class="card">
+          <h3>Điều kiện xứng đáng</h3>
+          <ul>
+            <li>Sức mạnh – ý chí không bẻ gãy.</li>
+            <li>Trí – biết cười trước số phận.</li>
+            <li>Tâm – không phản bội ước mơ của bất kỳ ai.</li>
+          </ul>
+        </article>
       </div>
     </section>
 
-    <!-- MỐI QUAN HỆ -->
-    <section id="quan-he">
-      <h2>🤝 Mối quan hệ nổi bật</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>Trong băng</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div><b>Luffy:</b> người giải thoát, trụ cột niềm tin của Nami.</div></li>
-            <li><span class="dot"></span><div><b>Usopp:</b> đối tác sáng chế Clima‑Tact.</div></li>
-            <li><span class="dot"></span><div><b>Sanji:</b> “bạn tốt chiều chuộng”, hay bị lợi dụng đáng yêu.</div></li>
-            <li><span class="dot"></span><div><b>Zoro:</b> tôn trọng nhau, thường cà khịa chuyện nợ nần.</div></li>
-            <li><span class="dot"></span><div><b>Robin:</b> thân thiết như chị em.</div></li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Gia đình &amp; làng</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div><b>Bell‑mère:</b> mẹ nuôi — nguồn cội của hình xăm và nghị lực.</div></li>
-            <li><span class="dot"></span><div><b>Nojiko:</b> chị gái nuôi, hậu phương tinh thần.</div></li>
-            <li><span class="dot"></span><div><b>Cocoyasi:</b> nơi Nami muốn bảo vệ bằng mọi giá.</div></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- KHOẢNH KHẮC -->
-    <section id="khoanh-khac">
-      <h2>🎬 Khoảnh khắc ấn tượng</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <ul class="list">
-            <li><span class="dot"></span><div><b>Arlong Park:</b> Nami khóc cầu cứu Luffy — biểu tượng lòng tin &amp; giải phóng.</div></li>
-            <li><span class="dot"></span><div><b>Enies Lobby:</b> sát cánh cứu Robin.</div></li>
-            <li><span class="dot"></span><div><b>Whole Cake:</b> lần đầu sử dụng Zeus hiệu quả, điều khiển cục diện.</div></li>
-            <li><span class="dot"></span><div><b>Wano:</b> chính thức đồng hành với Zeus — hỏa lực thăng hạng.</div></li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Giấc mơ &amp; biểu tượng</h3>
-          <p><b>Giấc mơ:</b> Vẽ bản đồ toàn thế giới. <br>
-             <b>Biểu tượng:</b> Ý chí tự do, vượt qua xiềng xích quá khứ để làm chủ vận mệnh.</p>
-          <h3 style="margin-top:14px">Fun facts</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Oda thích vẽ Nami vì dễ biến tấu trang phục, kiểu tóc.</div></li>
-            <li><span class="dot"></span><div>Nami luôn trong top nữ được yêu thích toàn cầu.</div></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- TIMELINE TỐM TẮT -->
     <section id="timeline">
-      <h2>🗺️ Hành trình tóm tắt</h2>
-      <div class="card timeline">
-        <div class="tl-item"><b>Tuổi thơ:</b> Được Bell‑mère nhận nuôi cùng Nojiko; đam mê bản đồ &amp; bầu trời.</div>
-        <div class="tl-item"><b>Arlong Park:</b> Bị ép vẽ bản đồ để chuộc làng; Luffy giải phóng, Nami gia nhập băng.</div>
-        <div class="tl-item"><b>Enies Lobby:</b> Chiến đấu vì đồng đội &amp; tự do.</div>
-        <div class="tl-item"><b>Timeskip:</b> Học ở Weatheria; Clima‑Tact nâng cấp.</div>
-        <div class="tl-item"><b>Whole Cake:</b> Hợp tác Zeus, điều khiển sấm sét.</div>
-        <div class="tl-item"><b>Wano:</b> Zeus “nhập” Clima‑Tact — sức mạnh bùng nổ.</div>
+      <h2 class="section-title">Dòng thời gian hành trình (mô phỏng)</h2>
+      <div class="timeline">
+        <div class="event">
+          <h4>Khởi hành từ East Blue</h4>
+          <div class="muted">Những giấc mơ nhỏ thắp sáng biển rộng.</div>
+        </div>
+        <div class="event">
+          <h4>Đi qua Grand Line</h4>
+          <div class="muted">Bạn bè mới, kẻ thù mới, thử thách mới.</div>
+        </div>
+        <div class="event">
+          <h4>Tân Thế Giới</h4>
+          <div class="muted">Nơi ý chí thật sự bị thử lửa.</div>
+        </div>
+        <div class="event">
+          <h4>Hòn đảo cuối</h4>
+          <div class="muted">Kho báu, sự thật… và tiếng cười.</div>
+        </div>
       </div>
     </section>
 
+    <section id="faq">
+      <h2 class="section-title">FAQ</h2>
+      <div class="grid cols-2">
+        <details class="card" open>
+          <summary>Kho báu One Piece có thật sự là vàng bạc?</summary>
+          <p>Vàng bạc có, nhưng không dừng ở đó. Giá trị tinh thần và lịch sử mới là đỉnh cao của kho báu.</p>
+        </details>
+        <details class="card">
+          <summary>Làm sao để “xứng đáng” với danh hiệu?</summary>
+          <p>Không có nghi thức. Danh hiệu đến với kẻ dám mơ, dám chịu trách nhiệm, và không bán rẻ đồng đội.</p>
+        </details>
+        <details class="card">
+          <summary>Tôi có thể thêm nội dung của riêng mình?</summary>
+          <p>Có! Đây là web con độc lập 1 file. Chỉ cần sửa các đoạn văn/tiêu đề trong mã HTML là được.</p>
+        </details>
+        <details class="card">
+          <summary>Nút “Xem thêm” dẫn đi đâu?</summary>
+          <p>Mặc định dẫn về <code>index.html#mucluc</code>. Bạn đổi URL cho phù hợp website chính của bạn.</p>
+        </details>
+      </div>
+    </section>
   </main>
 
-  <footer>
-  <div class="wrap foot">
-    <div>© 2025 • Nami Wiki Mini • Giao diện <span style="color:var(--brand)">gọn gàng</span> &amp; <span style="color:var(--brand-2)">dễ đọc</span>.</div>
-    <div style="display:flex; gap:10px;">
-      <a class="btn" href="TrangWebFanOnePiece.html" aria-label="Về trang chính">Trang chính 🏠</a>
-      <a class="btn" href="#top" aria-label="Lên đầu trang">Lên đầu ⤴</a>
+  <footer class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+      <div>© <span id="year"></span> Grand Line Archives · Web con One Piece theme</div>
+      <div>
+        <a class="btn" href="#top">⬆ Lên đầu trang</a>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<a href="TrangWebFanOnePiece.html" class="back-home-btn">Về trang chính</a>
+  <div class="float" aria-label="Công cụ nổi">
+    <button id="theme">🌓 Giao diện</button>
+    <button id="share">🔗 Chia sẻ</button>
+  </div>
+
+  <audio id="sfx" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_6b9e9a2d0c.mp3?filename=magic-coin-143267.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id=a.getAttribute('href');
-        const el=document.querySelector(id);
-        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
-      });
-    });
+    // Năm footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Theme toggle (light/dark)
-    const toggle=document.getElementById('toggleTheme');
-    const key='nami-theme';
-    const applyTheme= t=>{ document.documentElement.classList.toggle('light', t==='light'); }
-    const saved=localStorage.getItem(key)||'dark';
-    applyTheme(saved);
-    toggle.textContent = saved==='light' ? '☀️' : '🌙';
-    toggle.addEventListener('click',()=>{
-      const now=document.documentElement.classList.contains('light')?'dark':'light';
-      applyTheme(now); localStorage.setItem(key, now); toggle.textContent= now==='light'?'☀️':'🌙';
-    });
+    // Toggle theme (đảo nền biển/giấy cổ)
+    (function(){
+      const btn = document.getElementById('theme');
+      let parchment = false;
+      btn.addEventListener('click',()=>{
+        parchment = !parchment;
+        document.body.style.background = parchment
+          ? 'radial-gradient(900px 600px at 10% -10%, #f4e2b5, transparent 60%), radial-gradient(1000px 600px at 110% 10%, #f0dba1, transparent 60%), linear-gradient(180deg, #f7e6bf, #f1d8a9)'
+          : '';
+        btn.textContent = parchment ? '🌊 Giao diện biển' : '📜 Giao diện giấy cổ';
+      });
+    })();
+
+    // Nút share
+    (function(){
+      const btn = document.getElementById('share');
+      btn.addEventListener('click', async ()=>{
+        const url = location.href;
+        if(navigator.clipboard){
+          await navigator.clipboard.writeText(url);
+          btn.textContent = '✅ Đã copy liên kết';
+          setTimeout(()=>btn.textContent='🔗 Chia sẻ', 1600);
+        } else {
+          alert('Link: '+url);
+        }
+      });
+    })();
+
+    // Quote cảm hứng
+    (function(){
+      const btn = document.getElementById('btn-quote');
+      const sfx = document.getElementById('sfx');
+      const quotes = [
+        'Ước mơ không có điểm dừng.',
+        'Tự do là kho báu tối thượng.',
+        'Đồng đội là sức mạnh để cười vào mặt số phận.'
+      ];
+      btn?.addEventListener('click',()=>{
+        const q = quotes[Math.floor(Math.random()*quotes.length)];
+        sfx.currentTime = 0; sfx.play().catch(()=>{});
+        btn.textContent = '“'+ q +'”';
+        setTimeout(()=>btn.textContent='Nghe trích dẫn cảm hứng', 2200);
+      });
+    })();
+
+    // Canvas sóng trong thẻ hero
+    (function waves(){
+      const c = document.getElementById('wave'); if(!c) return; const ctx = c.getContext('2d');
+      let t = 0;
+      function draw(){
+        const w = c.width, h = c.height; ctx.clearRect(0,0,w,h);
+        // nền mờ
+        const g = ctx.createLinearGradient(0,0,0,h);
+        g.addColorStop(0,'rgba(255,255,255,.05)'); g.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+        // 3 lớp sóng
+        for(let k=0;k<3;k++){
+          ctx.beginPath();
+          for(let x=0;x<=w;x++){
+            const y = h*0.5 + Math.sin((x*0.012)+(t*0.02 + k))*10 + Math.sin((x*0.03)+(t*0.04 - k))*6;
+            if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+          }
+          ctx.strokeStyle = `rgba(108,200,255,${0.45 - k*0.12})`;
+          ctx.lineWidth = 2; ctx.stroke();
+        }
+        t+=1; requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // Cuộn mượt
+    if('scrollBehavior' in document.documentElement.style){
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', e=>{
+          const id=a.getAttribute('href').slice(1);
+          const el=document.getElementById(id);
+          if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+        })
+      })
+    }
   </script>
 </body>
 </html>
