@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nami — Hồ sơ nhân vật One Piece</title>
+  <meta name="description" content="Web con gọn gàng, đẹp mắt, tổng hợp đầy đủ thông tin về Nami trong One Piece."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220;             /* nền tối mặc định */
+      --panel:#0f172a;          /* thẻ/card */
+      --text:#e6edf6;           /* chữ chính */
+      --muted:#9fb0c6;          /* chữ phụ */
+      --brand:#f59e0b;          /* điểm nhấn cam (cam của Nami) */
+      --brand-2:#38bdf8;        /* điểm nhấn xanh biển */
+      --ring:#f59e0b55;         /* viền glow */
+      --ok:#22c55e;
+      --bad:#ef4444;
+      --card-radius:22px;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --maxw:1080px;
+    }
+    /* Light mode */
+    .light{
+      --bg:#f7fafc;
+      --panel:#ffffff;
+      --text:#0b1220;
+      --muted:#5b6575;
+      --ring:#f59e0b33;
+      --shadow:0 10px 24px rgba(10,20,30,.08);
+    }
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 600px at 20% -10%, #1b2a4a 0%, transparent 60%),
+                               radial-gradient(1200px 600px at 120% 10%, #1a3444 0%, transparent 60%),
+                               var(--bg);
+      color:var(--text);
+      font:16px/1.6 "Be Vietnam Pro", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      letter-spacing:.2px;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    /* ====== Header ====== */
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 18px}
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.6));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; gap:14px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+    .brand i{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, var(--brand), #ef7d19 60%);
+      box-shadow:0 0 0 4px rgba(245,158,11,.15), 0 4px 14px rgba(245,158,11,.35);
+    }
+    .brand span{font-size:18px}
+    .navlinks{margin-left:auto; display:flex; gap:12px; flex-wrap:wrap}
+    .navlinks a{
+      padding:8px 12px; border-radius:999px; font-weight:600; color:var(--text);
+      border:1px solid rgba(255,255,255,.08); opacity:.9
+    }
+    .navlinks a:hover{border-color:var(--brand); box-shadow:0 0 0 4px var(--ring)}
+    .toggle{margin-left:6px; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); cursor:pointer; font-weight:600}
+
+    /* ====== Hero ====== */
+    .hero{padding:38px 0 24px}
+    .hero .grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:22px}
+    .title{font-size:clamp(28px,4.2vw,44px); line-height:1.2; margin:6px 0 8px; font-weight:800}
+    .kicker{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); letter-spacing:.6px; text-transform:uppercase}
+    .kicker .dot{width:6px; height:6px; background:var(--brand-2); border-radius:50%}
+    .lead{font-size:18px; color:var(--muted)}
+    .cta-row{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+    .btn{padding:10px 14px; border-radius:14px; font-weight:700; border:1px solid rgba(255,255,255,.1); display:inline-flex; align-items:center; gap:8px; transition:.2s; box-shadow:var(--shadow)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), #ef7d19); color:#fff; border:none}
+    .btn.secondary{background:linear-gradient(135deg, var(--brand-2), #14b8a6); color:#001421; border:none}
+    .btn:hover{transform:translateY(-1px)}
+
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--card-radius); padding:18px; box-shadow:var(--shadow)}
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px}
+    .stat{background:var(--panel); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:14px}
+    .stat b{font-size:20px}
+    .meta{display:grid; gap:10px}
+    .meta-row{display:grid; grid-template-columns:140px 1fr; gap:10px}
+
+    /* ====== Sections ====== */
+    section{padding:24px 0}
+    h2{font-size:clamp(22px,3.4vw,30px); margin:0 0 12px; letter-spacing:.3px}
+    .grid{display:grid; gap:14px}
+    .cols-2{grid-template-columns:repeat(2,1fr)}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius:var(--card-radius); padding:18px; box-shadow:var(--shadow)}
+    .muted{color:var(--muted)}
+
+    .list{display:grid; gap:10px}
+    .list li{display:grid; grid-template-columns:18px 1fr; gap:10px; align-items:start}
+    .list .dot{width:10px; height:10px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); border-radius:50%; margin-top:8px}
+
+    /* table-like details */
+    .details{display:grid; gap:8px}
+    .row{display:grid; grid-template-columns: 180px 1fr; gap:10px; padding:10px; border-radius:12px; border:1px dashed rgba(255,255,255,.06)}
+    .row span{color:var(--muted)}
+
+    /* timeline */
+    .timeline{position:relative; padding-left:18px}
+    .timeline:before{content:""; position:absolute; left:6px; top:4px; bottom:4px; width:2px; background:linear-gradient(180deg, var(--brand-2), transparent)}
+    .tl-item{position:relative; padding:8px 0 8px 10px}
+    .tl-item:before{content:""; position:absolute; left:-2px; top:16px; width:10px; height:10px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px var(--ring)}
+
+    /* footer */
+    footer{padding:24px 0 40px; color:var(--muted)}
+    .foot{display:flex; justify-content:space-between; gap:10px; align-items:center; border-top:1px solid rgba(255,255,255,.08); padding-top:14px}
+
+    /* responsive */
+    @media (max-width: 940px){
+      .hero .grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .meta-row{grid-template-columns:1fr}
+      .cols-2{grid-template-columns:1fr}
+      .cols-3{grid-template-columns:repeat(2,1fr)}
+      .row{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .navlinks{display:none}
+      .stats{grid-template-columns:1fr}
+      .cols-3{grid-template-columns:1fr}
+    }
+	
+	.back-home-btn{
+  position:fixed;
+  right:20px;
+  bottom:80px;
+  background:rgba(245,158,11,0.85);   /* cam hơi trong suốt */
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  padding:10px 18px;
+  border-radius:24px;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+  text-decoration:none;
+  transition:.25s;
+  z-index:999;
+  backdrop-filter:blur(6px);          /* hiệu ứng kính mờ */
+  letter-spacing:0.3px;
+}
+.back-home-btn:hover{
+  background:rgba(245,158,11,1);      /* đậm hơn khi hover */
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 8px 22px rgba(0,0,0,.45);
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a href="#top" class="brand" aria-label="Trang chủ Nami">
+        <i aria-hidden="true">🎯</i>
+        <span>Nami • Hồ sơ nhân vật</span>
+      </a>
+      <nav class="navlinks" aria-label="Điều hướng nhanh">
+        <a href="#gioi-thieu">Giới thiệu</a>
+        <a href="#thong-tin">Thông tin cơ bản</a>
+        <a href="#nang-luc">Năng lực</a>
+        <a href="#quan-he">Mối quan hệ</a>
+        <a href="#khoanh-khac">Khoảnh khắc</a>
+      </nav>
+      <button class="toggle" id="toggleTheme" aria-label="Chuyển giao diện">🌙/☀️</button>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <!-- HERO -->
+    <section class="hero" id="gioi-thieu">
+      <div class="grid">
+        <div>
+          <span class="kicker"><span class="dot"></span> Nami • Miêu Tặc</span>
+          <h1 class="title">Nami — Hoa tiêu tài năng của băng Mũ Rơm.</h1>
+		  <img src="https://media1.tenor.com/m/cFT-KU5UWgYAAAAd/franky-franky-one-piece.gif" 
+     alt="Nami One Piece" 
+     style="width:100%; height:auto; border-radius:12px;">
+          <p class="lead">Từ cô gái bị áp bức ở làng Cocoyasi đến biểu tượng tự do trên biển cả. Thông minh, thực tế và tinh quái — Nami là trái tim và lý trí của băng.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#nang-luc">Khám phá năng lực ⚡</a>
+            <a class="btn secondary" href="#timeline">Xem hành trình ⛵</a>
+          </div>
+
+          <div class="hero-card" style="margin-top:16px">
+            <div class="meta">
+              <div class="meta-row"><strong>Tôi là kẻ chuyên lấy cắp báu vật từ tay hải tặc.<div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="hero-card">
+            <h2 style="margin:0 0 10px">Thông Tin Nhanh</h2>
+            <div class="stat">
+  <span class="muted">Tuổi (Sau Time Skip): </span><b>20</b>
+</div>
+<div class="stat">
+  <span class="muted">Chiều cao (Sau Time Skip): </span><b>170 cm.</b>
+</div>
+<div class="stat">
+  <span class="muted">Sinh nhật: </span><b>03/07</b>
+</div>
+<div class="stat">
+  <span class="muted">Truy nã (Sau Arc Wano): </span><b>366,000,000 beri.</b>
+</div>
+<div class="stat">
+  <span class="muted">Quê quán: </span><b>Làng Cocoyasi (East Blue).</b>
+</div>
+<div class="stat">
+  <span class="muted">Giấc mơ: </span><b>Vẽ bản đồ toàn thế giới.</b>
+</div>
+<div class="stat">
+  <span class="muted">Nhóm máu: </span><b>X</b>
+</div>
+<div class="stat">
+  <span class="muted">Chòm sao: </span><b>Cự Giải.</b>
+</div>
+<div class="stat">
+  <span class="muted">Quốc tịch (Theo Oda): </span><b>Thụy Điển.</b>
+</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- THÔNG TIN CƠ BẢN -->
+    <section id="thong-tin">
+      <h2>📌 Thông tin cơ bản</h2>
+      <div class="card details">
+        <div class="row"><span>Tên</span><div><strong>Nami (ナミ) — biệt danh: <em>Miêu tặc</em> / Cat Burglar.</div></div>
+		<div class="row"><span>Vai trò:</span><div><strong>Kẻ trộm, hoa tiêu, khảo sát viên – Nami làm được tất cả! Cô là hoa tiêu của băng, dẫn dắt chuyến hải trình nhờ kiến thức về biển cả và sự am hiểu thời tiết. Băng của Luffy phần lớn toàn những kẻ ngốc nghếch, nên chính cô là người giữ họ trong khuôn khổ.</div></div>
+		<div class="row"><span>Biểu tượng:</span><div><strong>Cô có một hình xăm màu xanh trên vai trái, biểu tượng cho cây quýt và chong chóng (tưởng niệm Bell-mère, Nojiko và Genzo). Hình xăm này che đi dấu ấn cũ khi cô từng là thành viên trong băng của Arlong.</div></div>
+        <div class="row"><span>Xuất thân</span><div>Làng Cocoyasi, East Blue • Mồ côi, được Bell-mère nhận nuôi cùng Nojiko</div></div>
+        <div class="row"><span>Tính cách</span><div>Thông minh, thực tế, ham tiền (động lực từ quá khứ), gan dạ nhưng sợ ma, mềm lòng, cá tính “chị cả”.</div></div>
+        <div class="row"><span>Trang phục</span><div>Trước TS: áo hở vai, váy ngắn • Sau TS: bikini + quần jeans/váy, phong cách gợi cảm.</div></div>
+        <div class="row"><span>Vũ khí</span><div><strong>Clima-Tact</strong> (Usopp chế) + nâng cấp Weatheria • Hợp thể với <strong>Zeus</strong> sau Whole Cake &amp; Wano.</div></div>
+        <div class="row"><span>Mục tiêu</span><div>Vẽ bản đồ thế giới • Dẫn dắt băng vượt mọi vùng biển với kỹ năng định hướng và khí tượng.</div></div>
+      </div>
+    </section>
+
+    <!-- NĂNG LỰC & SỨC MẠNH -->
+    <section id="nang-luc">
+      <h2>⚡ Năng lực &amp; Sức mạnh</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Hoa tiêu thiên tài</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Cảm nhận thời tiết, dòng hải lưu chính xác; tối ưu lộ trình, đảm bảo an toàn cho tàu.</div></li>
+            <li><span class="dot"></span><div>Phân tích khí tượng phức tạp (Grand Line, New World) — lợi thế chiến lược của băng.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Clima‑Tact</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Tạo mưa, sấm sét, gió mạnh, ảo ảnh nhiệt — khống chế không gian giao chiến.</div></li>
+            <li><span class="dot"></span><div>Nâng cấp Weatheria: tĩnh điện, black ball, heat ball… kết hợp chiến thuật đánh lừa.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Zeus hợp tác</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Zeus trú ngụ trong Clima‑Tact → đòn sét mạnh, linh hoạt, cơ động cao.</div></li>
+            <li><span class="dot"></span><div>Sau Wano: hỏa lực tăng vọt, đủ đối đầu các chỉ huy cấp thấp.</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÁ KHỨ & BƯỚC NGOẶT -->
+    <section id="qua-khu">
+      <h2>🧭 Quá khứ &amp; bước ngoặt</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>• Bi kịch Arlong</h3>
+          <p>- Từng là thành viên của Băng Arlong... </p>
+          <p><b>- Để mua .</p>
+        </div>
+        <div class="card">
+          <h3>Phát triển sau Timeskip</h3>
+          <p>Tu nghiệp tại Weatheria (đảo thời tiết); Clima‑Tact được nâng cấp; chiến thuật trưởng thành hơn, tự tin chỉ huy đội hình.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VAI TRÒ -->
+    <section id="vai-tro">
+      <h2>🎯 Vai trò trong băng Mũ Rơm</h2>
+      <div class="grid cols-3">
+        <div class="card"><h3>Hoa tiêu</h3><p>Bảo toàn hành trình, tránh nguy hiểm, lựa chọn cửa sổ thời tiết tối ưu.</p></div>
+        <div class="card"><h3>Quản lý tài chính</h3><p>Thu phí dịch vụ từ “ba chàng liều” Luffy/Zoro/Sanji 😆 và giữ kho báu của băng.</p></div>
+        <div class="card"><h3>Chị cả</h3><p>Giữ kỷ luật, cân bằng cảm xúc nhóm, đưa ra quyết định thực tế khi cần.</p></div>
+      </div>
+    </section>
+
+    <!-- MỐI QUAN HỆ -->
+    <section id="quan-he">
+      <h2>🤝 Mối quan hệ nổi bật</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Trong băng</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div><b>Luffy:</b> người giải thoát, trụ cột niềm tin của Nami.</div></li>
+            <li><span class="dot"></span><div><b>Usopp:</b> đối tác sáng chế Clima‑Tact.</div></li>
+            <li><span class="dot"></span><div><b>Sanji:</b> “bạn tốt chiều chuộng”, hay bị lợi dụng đáng yêu.</div></li>
+            <li><span class="dot"></span><div><b>Zoro:</b> tôn trọng nhau, thường cà khịa chuyện nợ nần.</div></li>
+            <li><span class="dot"></span><div><b>Robin:</b> thân thiết như chị em.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Gia đình &amp; làng</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div><b>Bell‑mère:</b> mẹ nuôi — nguồn cội của hình xăm và nghị lực.</div></li>
+            <li><span class="dot"></span><div><b>Nojiko:</b> chị gái nuôi, hậu phương tinh thần.</div></li>
+            <li><span class="dot"></span><div><b>Cocoyasi:</b> nơi Nami muốn bảo vệ bằng mọi giá.</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KHOẢNH KHẮC -->
+    <section id="khoanh-khac">
+      <h2>🎬 Khoảnh khắc ấn tượng</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <ul class="list">
+            <li><span class="dot"></span><div><b>Arlong Park:</b> Nami khóc cầu cứu Luffy — biểu tượng lòng tin &amp; giải phóng.</div></li>
+            <li><span class="dot"></span><div><b>Enies Lobby:</b> sát cánh cứu Robin.</div></li>
+            <li><span class="dot"></span><div><b>Whole Cake:</b> lần đầu sử dụng Zeus hiệu quả, điều khiển cục diện.</div></li>
+            <li><span class="dot"></span><div><b>Wano:</b> chính thức đồng hành với Zeus — hỏa lực thăng hạng.</div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Giấc mơ &amp; biểu tượng</h3>
+          <p><b>Giấc mơ:</b> Vẽ bản đồ toàn thế giới. <br>
+             <b>Biểu tượng:</b> Ý chí tự do, vượt qua xiềng xích quá khứ để làm chủ vận mệnh.</p>
+          <h3 style="margin-top:14px">Fun facts</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Oda thích vẽ Nami vì dễ biến tấu trang phục, kiểu tóc.</div></li>
+            <li><span class="dot"></span><div>Nami luôn trong top nữ được yêu thích toàn cầu.</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE TỐM TẮT -->
+    <section id="timeline">
+      <h2>🗺️ Hành trình tóm tắt</h2>
+      <div class="card timeline">
+        <div class="tl-item"><b>Tuổi thơ:</b> Được Bell‑mère nhận nuôi cùng Nojiko; đam mê bản đồ &amp; bầu trời.</div>
+        <div class="tl-item"><b>Arlong Park:</b> Bị ép vẽ bản đồ để chuộc làng; Luffy giải phóng, Nami gia nhập băng.</div>
+        <div class="tl-item"><b>Enies Lobby:</b> Chiến đấu vì đồng đội &amp; tự do.</div>
+        <div class="tl-item"><b>Timeskip:</b> Học ở Weatheria; Clima‑Tact nâng cấp.</div>
+        <div class="tl-item"><b>Whole Cake:</b> Hợp tác Zeus, điều khiển sấm sét.</div>
+        <div class="tl-item"><b>Wano:</b> Zeus “nhập” Clima‑Tact — sức mạnh bùng nổ.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+  <div class="wrap foot">
+    <div>© 2025 • Nami Wiki Mini • Giao diện <span style="color:var(--brand)">gọn gàng</span> &amp; <span style="color:var(--brand-2)">dễ đọc</span>.</div>
+    <div style="display:flex; gap:10px;">
+      <a class="btn" href="TrangWebFanOnePiece.html" aria-label="Về trang chính">Trang chính 🏠</a>
+      <a class="btn" href="#top" aria-label="Lên đầu trang">Lên đầu ⤴</a>
+    </div>
+  </div>
+</footer>
+
+<a href="TrangWebFanOnePiece.html" class="back-home-btn">Về trang chính</a>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id=a.getAttribute('href');
+        const el=document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    // Theme toggle (light/dark)
+    const toggle=document.getElementById('toggleTheme');
+    const key='nami-theme';
+    const applyTheme= t=>{ document.documentElement.classList.toggle('light', t==='light'); }
+    const saved=localStorage.getItem(key)||'dark';
+    applyTheme(saved);
+    toggle.textContent = saved==='light' ? '☀️' : '🌙';
+    toggle.addEventListener('click',()=>{
+      const now=document.documentElement.classList.contains('light')?'dark':'light';
+      applyTheme(now); localStorage.setItem(key, now); toggle.textContent= now==='light'?'☀️':'🌙';
+    });
+  </script>
+</body>
+</html>
